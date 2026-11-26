@@ -1,0 +1,24 @@
+# Local build output, caches, logs and temp files (kept on E: to spare C:)
+.build-cache/
+
+# Dependencies
+node_modules/
+
+# Environment files (local config; never commit)
+.env
+.env.*
+!.env.example
+
+# Generated native folders and Expo output
+mobile/android/
+mobile/ios/
+mobile/.expo/
+mobile/dist/
+
+# Local editor/agent settings
+.claude/settings.local.json
+mobile/.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db

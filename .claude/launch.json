@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "prototype",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:\\Users\\Admin\\AppData\\Local\\Temp\\claude\\5e16e279d398929e\\b67cafc1-9807-4fa6-9cc3-cb8e450be56c\\scratchpad\\serve.js", "E:\\pg\\prototype", "5178"],
+      "port": 5178
+    }
+  ]
+}

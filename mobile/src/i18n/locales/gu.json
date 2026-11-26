@@ -1,0 +1,26 @@
+{
+  "common": {
+    "appName": "PG ERP",
+    "retry": "ફરી પ્રયાસ કરો",
+    "cancel": "રદ કરો",
+    "allProperties": "બધી પ્રોપર્ટી"
+  },
+  "auth": {
+    "loginTitle": "PG ERP માં લોગ ઇન કરો",
+    "email": "ઈમેલ",
+    "password": "પાસવર્ડ",
+    "loginButton": "લોગ ઇન કરો",
+    "logout": "લોગ આઉટ"
+  },
+  "nav": {
+    "home": "હોમ",
+    "properties": "પ્રોપર્ટી",
+    "residents": "રહેવાસીઓ",
+    "finance": "ફાઇનાન્સ",
+    "more": "વધુ",
+    "rent": "ભાડું",
+    "complaints": "ફરિયાદો",
+    "notices": "સૂચનાઓ",
+    "profile": "પ્રોફાઇલ"
+  }
+}

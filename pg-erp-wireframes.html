@@ -1,0 +1,1286 @@
+<title>PG ERP Wireframes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Noto+Sans+Devanagari:wght@500;600&family=Noto+Sans+Gujarati:wght@500;600&display=swap">
+<style>
+/* Layout: a long spec sheet. Doc chrome follows viewer theme; phone screens are the app's own fixed light UI. */
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --fg:#0F1B2D; --muted:#5A6678; --line:#DDE3EC; --accent:#1E4FD8; --accent-soft:#E7EEFD; --frame:#0E1422;
+  --display:"Space Grotesk","Segoe UI",system-ui,sans-serif;
+  --body:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  /* app tokens (fixed, light app UI) */
+  --navy:#0F2A5C; --blue:#2457E6; --blue-50:#EDF2FE; --ink:#111A2B; --ink-2:#4A5568; --ink-3:#8C97A8;
+  --app-bg:#F5F7FB; --card:#FFFFFF; --stroke:#E4E8F0;
+  --green:#138A4A; --green-50:#E6F6EC; --amber:#B86E00; --amber-50:#FFF3DC; --red:#C8261B; --red-50:#FDEBE9; --slate-50:#EEF1F5;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0B111D; --surface:#121A29; --fg:#E7ECF4; --muted:#95A2B6; --line:#243047; --accent:#7B9DFF; --accent-soft:#1B2848; --frame:#000000; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#0B111D; --surface:#121A29; --fg:#E7ECF4; --muted:#95A2B6; --line:#243047; --accent:#7B9DFF; --accent-soft:#1B2848; --frame:#000000; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 80px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.topnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.topnav .in{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px;display:flex;gap:6px;overflow-x:auto;align-items:center}
+.topnav b{font-family:var(--display);margin-right:10px;white-space:nowrap}
+.topnav a{white-space:nowrap;color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px}
+.topnav a:hover,.topnav a:focus-visible{background:var(--accent-soft);color:var(--accent);outline:none}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+.hero{padding-block:48px 24px;display:grid;gap:14px}
+.hero h1{font-size:clamp(30px,5vw,46px);letter-spacing:-.02em}
+.hero p{max-width:70ch;color:var(--muted);margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+section.blk{padding-top:56px;scroll-margin-top:64px}
+section.blk>header{display:grid;gap:8px;margin-bottom:24px;max-width:80ch}
+section.blk>header h2{font-size:30px;letter-spacing:-.01em}
+section.blk>header p{margin:0;color:var(--muted)}
+h3.sub{font-size:19px;margin:36px 0 14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.grid-cols{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid-cols>*{min-width:0}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.p-done{background:#E3F4EA;color:#11683A}.p-next{background:var(--accent-soft);color:var(--accent)}.p-later{background:var(--line);color:var(--muted)}
+.tree h4{font-family:var(--display);font-size:16px;margin:0 0 4px}
+.tree .role{font-size:12px;color:var(--muted);margin-bottom:12px}
+.tree ul{margin:0;padding-left:16px;font-size:13.5px}
+.tree li{margin:3px 0}
+.tree li li{color:var(--muted)}
+.tree .m{font-family:var(--mono);font-size:11px;color:var(--accent);margin-right:4px}
+.mer{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.note{font-size:13px;color:var(--muted)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px}
+.flow span.s{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.flow span.s code{font-family:var(--mono);font-size:11px;color:var(--accent);margin-right:6px}
+.flow span.a{color:var(--muted)}
+
+/* ---------- Phone frames ---------- */
+.shots{display:flex;flex-wrap:wrap;gap:36px 28px;align-items:flex-start}
+.shot{width:320px;max-width:100%;display:grid;gap:10px}
+.phone{width:320px;max-width:100%;height:680px;border-radius:38px;border:9px solid var(--frame);background:var(--app-bg);overflow:hidden;position:relative;display:flex;flex-direction:column;font-family:var(--body);color:var(--ink);font-size:13px;line-height:1.4;box-shadow:0 1px 0 var(--line)}
+.phone.tall{height:auto;min-height:680px}
+.cap{font-size:13px;display:grid;gap:2px}
+.cap b{font-weight:600}
+.cap code{font-family:var(--mono);font-size:11px;color:var(--accent);margin-right:6px}
+.cap .to{color:var(--muted);font-size:12.5px}
+.sb{height:30px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 20px;font-size:11.5px;font-weight:600;color:var(--ink)}
+.sb i{font-style:normal;letter-spacing:1px}
+.sb.dark{color:#fff}
+.ab{flex:none;display:flex;align-items:center;gap:10px;padding:6px 14px 10px;background:var(--app-bg)}
+.ab h1{font-family:var(--body);font-size:17px;font-weight:700;flex:1;color:var(--ink)}
+.ab .ib{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--card);border:1px solid var(--stroke);position:relative;flex:none}
+.ab .ib .dot{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid #fff}
+.body{flex:1;overflow:hidden;padding:4px 14px 14px;display:flex;flex-direction:column;gap:12px}
+.phone.tall .body{overflow:visible}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ico.sm{width:14px;height:14px}.ico.lg{width:24px;height:24px}
+.card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:12px}
+.row{display:flex;align-items:center;gap:10px}
+.between{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.t-xs{font-size:10.5px}.t-s{font-size:11.5px}.t-m{font-size:13px}.t-l{font-size:16px}.t-xl{font-size:20px}.t-xxl{font-size:24px}
+.w6{font-weight:600}.w7{font-weight:700}
+.mut{color:var(--ink-2)}.mut2{color:var(--ink-3)}
+.num{font-variant-numeric:tabular-nums}
+.lbl{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;height:44px;border-radius:12px;font-weight:600;font-size:14px;border:1px solid transparent;padding:0 14px;white-space:nowrap}
+.btn.p{background:var(--blue);color:#fff}
+.btn.s{background:var(--card);color:var(--ink);border-color:var(--stroke)}
+.btn.g{background:transparent;color:var(--blue)}
+.btn.d{background:var(--red);color:#fff}
+.btn.dis{background:#C9D3E6;color:#fff}
+.btn.sm{height:34px;font-size:12.5px;border-radius:10px;padding:0 12px}
+.btn.wa{background:#1DA851;color:#fff}
+.stack{display:grid;gap:10px}
+.fld{display:grid;gap:5px}
+.fld label{font-size:11.5px;font-weight:600;color:var(--ink-2)}
+.inp{height:42px;border:1px solid var(--stroke);border-radius:10px;background:var(--card);display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--ink);font-size:13px}
+.inp.ph{color:var(--ink-3)}
+.inp.focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-50)}
+.inp.err{border-color:var(--red);box-shadow:0 0 0 3px var(--red-50)}
+.inp .pre{font-weight:600;padding-right:8px;border-right:1px solid var(--stroke)}
+.help{font-size:11px;color:var(--ink-3)}
+.help.err{color:var(--red);display:flex;gap:4px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:99px;border:1px solid var(--stroke);background:var(--card);font-size:11.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.bdg{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px;white-space:nowrap}
+.b-ok{background:var(--green-50);color:var(--green)}.b-warn{background:var(--amber-50);color:var(--amber)}.b-err{background:var(--red-50);color:var(--red)}.b-info{background:var(--blue-50);color:var(--blue)}.b-mute{background:var(--slate-50);color:var(--ink-2)}.b-navy{background:var(--navy);color:#fff}
+.bn{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:var(--card);border-top:1px solid var(--stroke);padding:7px 4px 12px}
+.bn div{display:grid;justify-items:center;gap:3px;font-size:10px;font-weight:600;color:var(--ink-3)}
+.bn div.on{color:var(--blue)}
+.bn div.on .ico{stroke-width:2.2}
+.list{background:var(--card);border:1px solid var(--stroke);border-radius:14px;overflow:hidden}
+.li{display:flex;align-items:center;gap:10px;padding:11px 12px;border-bottom:1px solid var(--stroke)}
+.li:last-child{border-bottom:0}
+.li .tx{flex:1;min-width:0}
+.li .tx div:first-child{font-weight:600}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.tile{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none}
+.sec{display:flex;justify-content:space-between;align-items:baseline}
+.sec b{font-size:14px}
+.sec a{font-size:12px;color:var(--blue);font-weight:600;text-decoration:none}
+.bar{height:6px;border-radius:9px;background:var(--slate-50);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:9px;background:var(--blue)}
+.qa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.qa div{background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:10px 4px;display:grid;justify-items:center;gap:6px;font-size:10.5px;font-weight:600;text-align:center;color:var(--ink)}
+.qa .tile{width:32px;height:32px}
+.scrim{position:absolute;inset:0;background:rgba(10,18,35,.45);z-index:2}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:20px 20px 0 0;z-index:3;padding:8px 16px 20px;display:grid;gap:12px}
+.sheet .grab{width:38px;height:4px;border-radius:9px;background:var(--stroke);justify-self:center}
+.dialog{position:absolute;left:22px;right:22px;top:50%;transform:translateY(-50%);background:var(--card);border-radius:18px;padding:18px;z-index:3;display:grid;gap:12px}
+.skel{background:linear-gradient(90deg,#E9EDF3 0%,#F3F5F9 50%,#E9EDF3 100%);border-radius:8px}
+@media (prefers-reduced-motion:no-preference){.skel{background-size:200% 100%;animation:sh 1.4s linear infinite}@keyframes sh{to{background-position:-200% 0}}}
+.toast{position:absolute;left:14px;right:14px;bottom:78px;background:var(--ink);color:#fff;border-radius:12px;padding:11px 12px;display:flex;gap:8px;align-items:center;font-size:12.5px;z-index:4}
+.empty{flex:1;display:grid;place-content:center;justify-items:center;text-align:center;gap:10px;padding:0 18px}
+.otp{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.otp div{height:46px;border:1px solid var(--stroke);border-radius:10px;background:var(--card);display:grid;place-items:center;font-size:19px;font-weight:700}
+.otp div.f{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-50)}
+.otp.e div{border-color:var(--red);color:var(--red)}
+.steps{display:flex;gap:4px}.steps i{flex:1;height:4px;border-radius:9px;background:var(--stroke)}.steps i.on{background:var(--blue)}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--slate-50);border-radius:10px;padding:3px;gap:3px}
+.seg div{text-align:center;font-size:11.5px;font-weight:600;padding:6px 0;border-radius:8px;color:var(--ink-2)}
+.seg div.on{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(16,24,40,.08)}
+.tabs{display:flex;gap:16px;border-bottom:1px solid var(--stroke);font-size:12.5px;font-weight:600;color:var(--ink-3)}
+.tabs div{padding:8px 0}.tabs div.on{color:var(--blue);box-shadow:inset 0 -2px 0 var(--blue)}
+.prop-img{height:92px;border-radius:12px;position:relative;overflow:hidden;background:linear-gradient(180deg,#CFE0F7 0%,#E7EFFA 70%,#D7DEE8 70%)}
+.toggle{width:36px;height:21px;border-radius:99px;background:var(--stroke);position:relative;flex:none}
+.toggle::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.toggle.on{background:var(--blue)}.toggle.on::after{left:17px}
+.radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--stroke);flex:none}
+.radio.on{border:5px solid var(--blue)}
+.map{height:86px;border-radius:10px;background:
+  linear-gradient(90deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%),
+  linear-gradient(0deg,transparent 40%,#fff 40%,#fff 46%,transparent 46%),
+  linear-gradient(35deg,transparent 60%,#FFF4CF 60%,#FFF4CF 64%,transparent 64%),#E3ECE4;position:relative;border:1px solid var(--stroke)}
+.map .pin{position:absolute;left:50%;top:44%;transform:translate(-50%,-100%);color:var(--red)}
+
+/* Design-system specimens */
+.spec{background:var(--app-bg);color:var(--ink);border-radius:14px;padding:18px;display:grid;gap:14px;border:1px solid var(--line);font-size:13px}
+.spec h4{font-family:var(--body);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:0}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.sw div{border-radius:10px;overflow:hidden;border:1px solid var(--stroke);background:var(--card);font-size:11.5px}
+.sw div i{display:block;height:46px}
+.sw div span{display:block;padding:6px 8px;line-height:1.3}
+.sw div code{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.typ div{display:flex;gap:14px;align-items:baseline;border-bottom:1px dashed var(--stroke);padding:6px 0}
+.typ code{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);width:120px;flex:none}
+.space{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.space div{display:grid;justify-items:center;gap:4px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.space i{display:block;background:var(--blue);border-radius:2px}
+.ind{font-family:"Noto Sans Devanagari",var(--body)}.guj{font-family:"Noto Sans Gujarati",var(--body)}
+@media (max-width:420px){.typ code{width:84px}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-bldg" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1M10 21v-3h4v3"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.6c1.9.7 3.1 2.5 3.5 5.4"/></symbol>
+    <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M7 4h11M7 8.5h11M7 4h3.5a4.5 4.5 0 0 1 0 9H7l8 7.5"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 21a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5v.5"/></symbol>
+    <symbol id="i-wifioff" viewBox="0 0 24 24"><path d="M3 3l18 18M8.5 16.5a5 5 0 0 1 7 0M5 12.6a10 10 0 0 1 4.6-2.5M19 12.6a10 10 0 0 0-2.3-1.6M2 9a15 15 0 0 1 4.3-2.6M22 9a15 15 0 0 0-9.5-3.9M12 20h.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18V6M3 14h18v4M21 14v-1a3 3 0 0 0-3-3h-7v4"/><circle cx="7" cy="11" r="1.6"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.5 5.5a4 4 0 0 0 4.9 4.9l-8.6 8.6a2.1 2.1 0 0 1-3-3l8.6-8.6a4 4 0 0 0-1.9-1.9z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M11 20V5M17 20v-7M3 20h18"/></symbol>
+    <symbol id="i-door" viewBox="0 0 24 24"><path d="M6 21V4h10v17M3 21h18M13 12.5h.01"/></symbol>
+    <symbol id="i-mega" viewBox="0 0 24 24"><path d="M4 10v4h3l8 4.5v-13L7 10zM18.5 9a4 4 0 0 1 0 6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 20l1.4-3.9A8 8 0 1 1 8 18.8z"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-finger" viewBox="0 0 24 24"><path d="M7 11a5 5 0 0 1 10 0v2M12 11v4c0 2.5-1 4.5-2.5 6M9.5 13.5c0 2-.5 3.5-1.5 5M14.5 13v2.5c0 1.5-.3 3-.8 4.5M5 15c.5-1 .5-2.5.5-4a6.5 6.5 0 0 1 11-4.7"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z"/></symbol>
+    <symbol id="i-cal-in" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5M15 12H3M14 4h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-5"/></symbol>
+    <symbol id="i-cal-out" viewBox="0 0 24 24"><path d="M15 17l5-5-5-5M20 12H8M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><path d="M4 7h16l-1.5 10h-13zM9 7V5a3 3 0 0 1 6 0v2"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 15H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.9l-.1-.1A2 2 0 1 1 7 5.2l.1.1A1.7 1.7 0 0 0 10 4.1V4a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.1a2 2 0 1 1 0 4z"/></symbol>
+    <symbol id="i-food" viewBox="0 0 24 24"><path d="M5 3v8a2 2 0 0 0 4 0V3M7 11v10M17 21V3c-2 1-3 4-3 7h3"/></symbol>
+    <symbol id="i-badge" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9.5" cy="11" r="2"/><path d="M6.5 16c.5-1.5 1.6-2.3 3-2.3s2.5.8 3 2.3M15 10h3M15 13h3"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+  </defs>
+</svg>
+
+<nav class="topnav" aria-label="Sections"><div class="in">
+  <b>PG ERP</b>
+  <a href="#overview">Overview</a><a href="#sitemap">Sitemap</a><a href="#navigation">Navigation</a><a href="#design-system">Design system</a><a href="#auth">Auth &amp; onboarding</a><a href="#dashboard">Owner dashboard</a><a href="#workflows">Workflows</a><a href="#coverage">Coverage</a>
+</div></nav>
+
+<div class="wrap">
+
+<header class="hero" id="overview">
+  <div class="eyebrow">Mobile app wireframes · Phase 1 of 6</div>
+  <h1>PG ERP mobile application</h1>
+  <p>Wireframes for an Indian PG management app with two separate experiences: the <b>Owner app</b> (business, properties, residents, money) and the <b>Resident app</b> (my room, my rent, my complaints). A restricted <b>Super Admin console</b> runs as a third, separate app. This phase sets the architecture and design system and covers authentication, onboarding and the owner dashboard with property switching.</p>
+  <p class="note">Sample business used throughout: <b>Deven PG Group</b>, owner Deven Patel, 3 properties: Sunrise Boys PG (Vadodara), Royal PG (Ahmedabad), Krishna PG (Surat). 200 beds total, 164 occupied.</p>
+</header>
+
+<!-- ======================= STAGE 1 + 2 ======================= -->
+<section class="blk" id="sitemap">
+  <header>
+    <div class="eyebrow">Stage 1–2 · Information architecture</div>
+    <h2>Application sitemap</h2>
+    <p>Three apps share one design system and one backend, but never share navigation. The role comes from the authenticated account on the server (Supabase Auth + Row Level Security), never from a switch in the UI. Codes like <code>M6</code> map to the 15 modules in the specification.</p>
+  </header>
+
+  <div class="panel" style="margin-bottom:16px">
+    <div class="tree"><h4>Data hierarchy the UI follows</h4></div>
+    <div class="flow" style="margin-top:8px">
+      <span class="s">Owner</span><span class="a">→</span><span class="s">PG Business (tenant)</span><span class="a">→</span><span class="s">Property / Branch</span><span class="a">→</span><span class="s">Building</span><span class="a">→</span><span class="s">Floor</span><span class="a">→</span><span class="s">Room</span><span class="a">→</span><span class="s">Bed</span><span class="a">→</span><span class="s">Resident</span>
+    </div>
+    <p class="note" style="margin:10px 0 0">Every screen below the business level carries a property scope. The global property switcher sets it; "All Properties" means the business-wide view. Lists, finances, reports and expenses all filter by it.</p>
+  </div>
+
+  <div class="grid-cols">
+    <div class="panel tree">
+      <h4>Owner app</h4><div class="role">Bottom nav: Home · Properties · Residents · Finance · More</div>
+      <ul>
+        <li><b>Home</b> <span class="m">M1</span>
+          <ul><li>Property switcher (All / single)</li><li>KPIs: beds, occupancy, rent, expenses</li><li>Quick actions</li><li>Needs attention, check-ins/outs</li><li>Activity feed · Notifications <span class="m">M12</span></li></ul></li>
+        <li><b>Properties</b> <span class="m">M2 M3</span>
+          <ul><li>Property list · Add / edit property</li><li>Property details: address, amenities, photos, documents, status, analytics</li><li>Buildings → Floors → Rooms → Beds</li><li>Occupancy map · Bed history</li><li>Electricity meters per room</li><li>PG rules, curfew &amp; visitor policy</li></ul></li>
+        <li><b>Residents</b> <span class="m">M4 M5</span>
+          <ul><li>Resident list (filters: active, notice period, KYC pending)</li><li>Add resident (5-step form)</li><li>Profile: details, guardian, emergency, KYC, room, payments, stay history</li><li>KYC verification · Police verification</li><li>Check-in · Check-out &amp; settlement</li><li>Reservations: list, create, waitlist, cancel</li></ul></li>
+        <li><b>Finance</b> <span class="m">M6 M7 M8</span>
+          <ul><li>Overview · Rent collection</li><li>Invoices: generate, details, breakdown, late fees</li><li>Payments: record cash, UPI status, verify, receipts</li><li>Deposits: collect, deduct, settle, refund</li><li>Expenses: add, categories, vendors, recurring, approvals</li><li>Electricity bill split · Food charges</li></ul></li>
+        <li><b>More</b>
+          <ul><li>Complaints &amp; maintenance <span class="m">M9</span></li><li>Staff, attendance, shifts, leave, salary <span class="m">M10</span></li><li>Reports &amp; export <span class="m">M11</span></li><li>Announcements &amp; notices <span class="m">M12</span></li><li>Visitor register</li><li>Food &amp; mess (menu, meal plans)</li><li>Subscription &amp; plans <span class="m">M13</span></li><li>Settings, profile, security, help <span class="m">M14</span></li></ul></li>
+      </ul>
+    </div>
+    <div class="panel tree">
+      <h4>Resident app</h4><div class="role">Bottom nav: Home · Rent · Complaints · Notices · Profile</div>
+      <ul>
+        <li><b>Home</b>
+          <ul><li>My PG, building, floor, room, bed</li><li>Next rent due + Pay now</li><li>Latest notices · Reminders</li><li>Today's menu (if mess enabled)</li><li>Recent activity</li></ul></li>
+        <li><b>Rent</b>
+          <ul><li>Current invoice · Invoice breakdown</li><li>Pay: method → UPI → processing → success / failure</li><li>Receipts: preview, download, share</li><li>Payment history · Pending dues</li><li>Electricity share for the month</li></ul></li>
+        <li><b>Complaints</b>
+          <ul><li>My complaints · Status tracker</li><li>Raise complaint: category → details → photos → submit</li><li>Resolution details · Feedback</li></ul></li>
+        <li><b>Notices</b>
+          <ul><li>Announcements · Maintenance notices</li><li>PG rules, curfew, visitor policy</li><li>Read / unread</li></ul></li>
+        <li><b>Profile</b>
+          <ul><li>Personal details · Guardian · Emergency contact</li><li>KYC documents &amp; status</li><li>Security deposit · Stay history</li><li>Check-out request &amp; information</li><li>Visitor pre-registration</li><li>Language, notifications, help, logout</li></ul></li>
+      </ul>
+    </div>
+    <div class="panel tree">
+      <h4>Super Admin console</h4><div class="role">Separate app build + separate login. Internal staff only. <span class="m">M15</span></div>
+      <ul>
+        <li><b>Dashboard</b> <ul><li>Businesses, MRR, active beds, churn</li></ul></li>
+        <li><b>Businesses</b> <ul><li>Business list · Business details</li><li>Owner account details</li><li>Suspend / reactivate</li></ul></li>
+        <li><b>Subscriptions</b> <ul><li>Subscription management</li><li>Plan management (Basic, Professional, Enterprise)</li><li>Platform revenue</li></ul></li>
+        <li><b>Users</b> <ul><li>Platform user management</li></ul></li>
+        <li><b>Support</b> <ul><li>Support tickets</li></ul></li>
+        <li><b>System</b> <ul><li>Platform analytics · Settings · Audit logs</li></ul></li>
+      </ul>
+      <div class="tree" style="margin-top:18px"><h4>Shared screens</h4><div class="role">Same components, role-specific content</div></div>
+      <ul>
+        <li>Splash, language, mobile + OTP, account selection</li>
+        <li>Notification list &amp; detail</li>
+        <li>Receipt preview (owner and resident see the same document)</li>
+        <li>Complaint detail (different actions per role)</li>
+        <li>Document viewer, image picker</li>
+        <li>Edge states: offline, error, permission denied</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="navigation">
+  <header>
+    <div class="eyebrow">Stage 2 · Navigation</div>
+    <h2>Navigation diagrams</h2>
+    <p>Each bottom tab owns a stack. Create and edit flows open as full-screen stacks with a close button; quick choices (property switcher, filters, confirm actions) open as bottom sheets.</p>
+  </header>
+
+  <h3 class="sub">Owner app</h3>
+  <div class="mer"><pre class="mermaid">
+flowchart LR
+  AUTH([Login / OTP]) --> HOME
+  subgraph TABS[Bottom navigation]
+    HOME[Home]
+    PROP[Properties]
+    RES[Residents]
+    FIN[Finance]
+    MORE[More]
+  end
+  HOME -.-> SW{{Property switcher sheet}}
+  HOME --> QA[Quick actions]
+  HOME --> NOTIF[Notifications]
+  PROP --> PD[Property details] --> BL[Buildings] --> FL[Floors] --> RM[Rooms] --> BD[Bed details]
+  PD --> AM[Amenities / Photos / Documents / Rules]
+  RES --> RP[Resident profile]
+  RES --> ADD[Add resident 5 steps]
+  RES --> RSV[Reservations]
+  RP --> KYC[KYC + police verification]
+  RP --> CO[Check-out + settlement]
+  FIN --> INV[Invoices] --> PAY[Payments] --> RCPT[Receipt]
+  FIN --> DEP[Deposits] --> RF[Refund]
+  FIN --> EXP[Expenses]
+  MORE --> CMP[Complaints]
+  MORE --> STF[Staff]
+  MORE --> REP[Reports]
+  MORE --> ANN[Announcements]
+  MORE --> VIS[Visitors]
+  MORE --> MESS[Food and mess]
+  MORE --> SUB[Subscription]
+  MORE --> SET[Settings]
+  </pre></div>
+
+  <h3 class="sub">Resident app</h3>
+  <div class="mer"><pre class="mermaid">
+flowchart LR
+  INVITE([WhatsApp / SMS invite]) --> OTP[Verify mobile] --> HOME
+  subgraph TABS[Bottom navigation]
+    HOME[Home]
+    RENT[Rent]
+    CMP[Complaints]
+    NOT[Notices]
+    PRO[Profile]
+  end
+  HOME --> ROOM[My room and bed]
+  HOME --> PAYNOW[Pay now]
+  RENT --> INV[Invoice details] --> METHOD[Payment method] --> UPI[UPI app] --> RESULT{Success or failure} --> RCPT[Receipt]
+  RENT --> HIST[Payment history]
+  CMP --> NEW[Raise complaint] --> PH[Add photos] --> SUBMIT[Submit]
+  CMP --> CD[Complaint details] --> FB[Feedback]
+  NOT --> ND[Notice details]
+  NOT --> RULES[PG rules]
+  PRO --> KYC[KYC documents]
+  PRO --> DEP[Security deposit]
+  PRO --> GUARD[Guardian and emergency]
+  PRO --> CHK[Check-out request]
+  </pre></div>
+  <p class="note">Super Admin uses a side drawer instead of a bottom bar (6 sections, rarely used on the go) and is shipped as a separate build so the consumer apps contain no admin code paths.</p>
+</section>
+
+<!-- ======================= STAGE 3 ======================= -->
+<section class="blk" id="design-system">
+  <header>
+    <div class="eyebrow">Stage 3 · Design system</div>
+    <h2>Design system and components</h2>
+    <p>One token set for Owner, Resident and Admin apps. Deep navy for identity and selected states, a brighter blue for actions, semantic colours only for status. Base unit 4&nbsp;px; screens designed at 360&nbsp;×&nbsp;780 dp (Android baseline), safe on 375 pt iOS.</p>
+  </header>
+
+  <div class="grid-cols">
+    <div class="spec">
+      <h4>Colour</h4>
+      <div class="sw">
+        <div><i style="background:#0F2A5C"></i><span>Navy · identity<br><code>#0F2A5C</code></span></div>
+        <div><i style="background:#2457E6"></i><span>Blue · actions<br><code>#2457E6</code></span></div>
+        <div><i style="background:#EDF2FE"></i><span>Blue 50 · tint<br><code>#EDF2FE</code></span></div>
+        <div><i style="background:#111A2B"></i><span>Ink · text<br><code>#111A2B</code></span></div>
+        <div><i style="background:#4A5568"></i><span>Ink 2 · secondary<br><code>#4A5568</code></span></div>
+        <div><i style="background:#8C97A8"></i><span>Ink 3 · hints<br><code>#8C97A8</code></span></div>
+        <div><i style="background:#F5F7FB"></i><span>Background<br><code>#F5F7FB</code></span></div>
+        <div><i style="background:#E4E8F0"></i><span>Stroke<br><code>#E4E8F0</code></span></div>
+        <div><i style="background:#138A4A"></i><span>Success<br><code>#138A4A</code></span></div>
+        <div><i style="background:#B86E00"></i><span>Warning<br><code>#B86E00</code></span></div>
+        <div><i style="background:#C8261B"></i><span>Error<br><code>#C8261B</code></span></div>
+        <div><i style="background:#1DA851"></i><span>WhatsApp actions only<br><code>#1DA851</code></span></div>
+      </div>
+      <h4>Bed status (used on every room map)</h4>
+      <div class="chips">
+        <span class="bdg b-ok">Available</span><span class="bdg b-info">Reserved</span><span class="bdg b-navy">Occupied</span><span class="bdg b-warn">Maintenance</span><span class="bdg b-mute">Inactive</span>
+      </div>
+      <h4>Money and status</h4>
+      <div class="chips">
+        <span class="bdg b-ok">Paid</span><span class="bdg b-warn">Partially paid</span><span class="bdg b-info">Due 5 Dec</span><span class="bdg b-err">Overdue 6 days</span><span class="bdg b-mute">Draft</span>
+      </div>
+    </div>
+
+    <div class="spec">
+      <h4>Typography · Inter, Noto Sans for Hindi &amp; Gujarati</h4>
+      <div class="typ">
+        <div><code>Display 24/30 B</code><span style="font-size:24px;font-weight:700">₹10,84,500</span></div>
+        <div><code>Title 20/26 B</code><span style="font-size:20px;font-weight:700">Sunrise Boys PG</span></div>
+        <div><code>Heading 17/22 B</code><span style="font-size:17px;font-weight:700">Rent collection</span></div>
+        <div><code>Body 14/20 M</code><span style="font-size:14px;font-weight:500">Room 204 · Bed B · 3 sharing</span></div>
+        <div><code>Body S 13/18 R</code><span style="font-size:13px">Due on 5 December 2026</span></div>
+        <div><code>Caption 11.5/16</code><span style="font-size:11.5px;color:var(--ink-2)">Updated 2 min ago</span></div>
+        <div><code>Overline 10.5 CAPS</code><span class="lbl">Occupancy</span></div>
+        <div><code>हिन्दी</code><span class="ind" style="font-size:15px">किराया बकाया है</span></div>
+        <div><code>ગુજરાતી</code><span class="guj" style="font-size:15px">ભાડું બાકી છે</span></div>
+      </div>
+      <p class="help" style="margin:0">Minimum body size 13 sp. Numbers use tabular figures. Rupee amounts use Indian grouping (₹1,42,000) and drop paise unless non-zero. All strings come from translation files; layouts allow 30% text growth for Hindi/Gujarati.</p>
+    </div>
+
+    <div class="spec">
+      <h4>Spacing (4-pt) and radius</h4>
+      <div class="space">
+        <div><i style="width:4px;height:4px"></i>4</div><div><i style="width:8px;height:8px"></i>8</div><div><i style="width:12px;height:12px"></i>12</div><div><i style="width:16px;height:16px"></i>16</div><div><i style="width:20px;height:20px"></i>20</div><div><i style="width:24px;height:24px"></i>24</div><div><i style="width:32px;height:32px"></i>32</div>
+      </div>
+      <p class="help" style="margin:0">Screen padding 16 · card padding 12–16 · gap between cards 12 · section gap 20.</p>
+      <div class="row" style="gap:12px;flex-wrap:wrap">
+        <div style="width:54px;height:40px;border:1.5px solid var(--blue);border-radius:6px;display:grid;place-items:center;font-size:10.5px">6 badge</div>
+        <div style="width:54px;height:40px;border:1.5px solid var(--blue);border-radius:10px;display:grid;place-items:center;font-size:10.5px">10 input</div>
+        <div style="width:54px;height:40px;border:1.5px solid var(--blue);border-radius:12px;display:grid;place-items:center;font-size:10.5px">12 button</div>
+        <div style="width:54px;height:40px;border:1.5px solid var(--blue);border-radius:14px;display:grid;place-items:center;font-size:10.5px">14 card</div>
+        <div style="width:54px;height:40px;border:1.5px solid var(--blue);border-radius:20px 20px 0 0;display:grid;place-items:center;font-size:10.5px">20 sheet</div>
+      </div>
+      <h4>Touch and layout rules</h4>
+      <ul class="help" style="margin:0;padding-left:16px;font-size:12px;color:var(--ink-2)">
+        <li>Touch targets ≥ 44 × 44. Primary action sits in the bottom third (thumb zone).</li>
+        <li>One primary button per screen; destructive actions always confirm.</li>
+        <li>Max 4 KPI tiles above the fold; detail lives one tap deeper.</li>
+        <li>Lists replace tables. A "mobile table" is a stacked row: title, 2 meta values, status badge, amount right-aligned.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Components</h3>
+  <div class="grid-cols">
+    <div class="spec">
+      <h4>Buttons</h4>
+      <div class="stack">
+        <div class="btn p">Collect rent</div>
+        <div class="row"><div class="btn s" style="flex:1">Cancel</div><div class="btn d" style="flex:1">Delete</div></div>
+        <div class="row"><div class="btn dis" style="flex:1">Disabled</div><div class="btn g" style="flex:1">Text action</div></div>
+        <div class="btn wa"><svg class="ico"><use href="#i-chat"/></svg>Send reminder on WhatsApp</div>
+      </div>
+      <h4>Chips, segmented, tabs</h4>
+      <div class="chips"><span class="chip on">All</span><span class="chip">Active</span><span class="chip">Notice period</span><span class="chip">KYC pending</span></div>
+      <div class="seg"><div class="on">Month</div><div>Quarter</div><div>Year</div></div>
+      <div class="tabs"><div class="on">Details</div><div>KYC</div><div>Payments</div><div>History</div></div>
+    </div>
+
+    <div class="spec">
+      <h4>Inputs</h4>
+      <div class="fld"><label>Mobile number</label><div class="inp focus"><span class="pre">+91</span>98250 41736</div></div>
+      <div class="fld"><label>Monthly rent</label><div class="inp"><span class="mut">₹</span>8,000</div><div class="help">Room default is ₹8,000 for 3-sharing AC</div></div>
+      <div class="fld"><label>PIN code</label><div class="inp err">39000</div><div class="help err"><svg class="ico sm"><use href="#i-alert"/></svg>PIN code must be 6 digits</div></div>
+      <div class="fld"><label>Property</label><div class="inp between"><span>Sunrise Boys PG</span><svg class="ico sm"><use href="#i-down"/></svg></div></div>
+      <div class="fld"><label>Check-in date</label><div class="inp between"><span>1 Dec 2026</span><svg class="ico sm"><use href="#i-cal"/></svg></div></div>
+      <div class="inp ph"><svg class="ico sm"><use href="#i-search"/></svg>Search name, room or mobile</div>
+    </div>
+
+    <div class="spec">
+      <h4>Cards and list rows</h4>
+      <div class="card stack" style="gap:6px">
+        <div class="lbl">Pending rent</div>
+        <div class="between"><span class="t-xl w7 num">₹1,42,000</span><span class="bdg b-err">18 residents</span></div>
+        <div class="bar"><i style="width:88%"></i></div>
+        <div class="t-s mut">88% collected for November</div>
+      </div>
+      <div class="list">
+        <div class="li"><div class="av" style="background:#E8EEFC;color:var(--blue)">RS</div><div class="tx"><div>Rohan Sharma</div><div class="t-s mut">Sunrise · A-204 · Bed B</div></div><div style="text-align:right"><div class="w7 num">₹8,000</div><span class="bdg b-err">Overdue</span></div></div>
+        <div class="li"><div class="av" style="background:#FDF0DB;color:var(--amber)">AP</div><div class="tx"><div>Aarav Patel</div><div class="t-s mut">Sunrise · A-105 · Bed A</div></div><div style="text-align:right"><div class="w7 num">₹7,500</div><span class="bdg b-ok">Paid</span></div></div>
+      </div>
+      <h4>Toast</h4>
+      <div class="row" style="background:var(--ink);color:#fff;border-radius:12px;padding:11px 12px;gap:8px;font-size:12.5px"><svg class="ico" style="color:#5FD38D"><use href="#i-check"/></svg>Payment of ₹8,000 recorded<span style="margin-left:auto;color:#9DB6FF;font-weight:600">Undo</span></div>
+    </div>
+
+    <div class="spec">
+      <h4>Navigation bars</h4>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="ab" style="background:var(--card)"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Room A-204</h1><div class="ib"><svg class="ico"><use href="#i-dots"/></svg></div></div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="bn" style="border-top:0">
+          <div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div><svg class="ico"><use href="#i-grid"/></svg>More</div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="bn" style="border-top:0">
+          <div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-rupee"/></svg>Rent</div><div><svg class="ico"><use href="#i-wrench"/></svg>Complaints</div><div><svg class="ico"><use href="#i-mega"/></svg>Notices</div><div><svg class="ico"><use href="#i-user"/></svg>Profile</div>
+        </div>
+      </div>
+      <h4>Loading skeleton</h4>
+      <div class="card stack" style="gap:8px"><div class="skel" style="height:12px;width:40%"></div><div class="skel" style="height:22px;width:70%"></div><div class="skel" style="height:8px"></div></div>
+      <h4>Empty state pattern</h4>
+      <div class="card" style="display:grid;justify-items:center;gap:6px;text-align:center;padding:18px">
+        <div class="tile" style="width:48px;height:48px;border-radius:14px;background:var(--blue-50);color:var(--blue)"><svg class="ico lg"><use href="#i-users"/></svg></div>
+        <b>No residents added yet</b><span class="t-s mut">Add your first resident to start tracking rent.</span><div class="btn p sm">Add resident</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">Overlays and mobile patterns</h3>
+  <div class="shots">
+    <div class="shot">
+      <div class="phone" style="height:420px">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="body" style="filter:blur(1px)"><div class="card" style="height:90px"></div><div class="card" style="height:120px"></div></div>
+        <div class="scrim"></div>
+        <div class="dialog">
+          <div class="tile" style="background:var(--red-50);color:var(--red)"><svg class="ico"><use href="#i-alert"/></svg></div>
+          <b class="t-l">Cancel this reservation?</b>
+          <span class="mut">Bed B in Room A-204 will become available. The ₹2,000 advance will be marked for refund.</span>
+          <div class="row"><div class="btn s" style="flex:1">Keep</div><div class="btn d" style="flex:1">Cancel booking</div></div>
+        </div>
+      </div>
+      <div class="cap"><span><code>DS-01</code><b>Confirmation dialog</b></span><span class="to">Used for destructive or money-moving actions. The verb on the button repeats the action.</span></div>
+    </div>
+    <div class="shot">
+      <div class="phone" style="height:420px">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="body"><div class="card" style="height:90px"></div></div>
+        <div class="scrim"></div>
+        <div class="sheet">
+          <div class="grab"></div>
+          <div class="between"><b class="t-l">Filter residents</b><span class="t-s" style="color:var(--blue);font-weight:600">Reset</span></div>
+          <div class="lbl">Status</div>
+          <div class="chips"><span class="chip on">Active</span><span class="chip">Notice period</span><span class="chip">Checked out</span></div>
+          <div class="lbl">Rent</div>
+          <div class="chips"><span class="chip">Paid</span><span class="chip on">Overdue</span><span class="chip">Partial</span></div>
+          <div class="btn p">Show 12 residents</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>DS-02</code><b>Bottom sheet</b></span><span class="to">Filters, pickers, the property switcher and quick actions. Button states the result count.</span></div>
+    </div>
+    <div class="shot">
+      <div class="phone" style="height:420px">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><h1>Rent collection</h1></div>
+        <div class="body">
+          <div class="card stack" style="gap:10px">
+            <div class="between"><b>Collected vs billed</b><span class="t-s mut">Last 6 months</span></div>
+            <svg viewBox="0 0 270 120" width="100%" role="img" aria-label="Bar chart">
+              <g stroke="#E4E8F0"><line x1="24" y1="10" x2="270" y2="10"/><line x1="24" y1="50" x2="270" y2="50"/><line x1="24" y1="90" x2="270" y2="90"/></g>
+              <g font-size="9" fill="#8C97A8"><text x="0" y="13">12L</text><text x="0" y="53">6L</text><text x="4" y="93">0</text></g>
+              <g fill="#C9D7F7"><rect x="34" y="17" width="14" height="73" rx="3"/><rect x="74" y="15" width="14" height="75" rx="3"/><rect x="114" y="13" width="14" height="77" rx="3"/><rect x="154" y="12" width="14" height="78" rx="3"/><rect x="194" y="10" width="14" height="80" rx="3"/><rect x="234" y="8.2" width="14" height="81.8" rx="3"/></g>
+              <g fill="#2457E6"><rect x="34" y="29" width="14" height="61" rx="3"/><rect x="74" y="27" width="14" height="63" rx="3"/><rect x="114" y="24.6" width="14" height="65.4" rx="3"/><rect x="154" y="22" width="14" height="68" rx="3"/><rect x="194" y="19.3" width="14" height="70.7" rx="3"/><rect x="234" y="17.7" width="14" height="72.3" rx="3"/></g>
+              <g font-size="9" fill="#8C97A8"><text x="32" y="104">Jun</text><text x="74" y="104">Jul</text><text x="111" y="104">Aug</text><text x="152" y="104">Sep</text><text x="193" y="104">Oct</text><text x="232" y="104">Nov</text></g>
+              <circle cx="241" cy="17.7" r="3" fill="#2457E6" stroke="#fff" stroke-width="1.5"/>
+            </svg>
+            <div class="row t-s mut" style="gap:14px"><span class="row" style="gap:5px"><i style="width:9px;height:9px;border-radius:2px;background:#2457E6;display:inline-block"></i>Collected</span><span class="row" style="gap:5px"><i style="width:9px;height:9px;border-radius:2px;background:#C9D7F7;display:inline-block"></i>Billed</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><span><code>DS-03</code><b>Chart card</b></span><span class="to">Bars for money over time, a ring for occupancy, progress bars for collection. Max one chart per card.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= STAGE 4a · AUTH ======================= -->
+<section class="blk" id="auth">
+  <header>
+    <div class="eyebrow">Stage 4 · Authentication &amp; onboarding</div>
+    <h2>Login, OTP and owner setup</h2>
+    <p>Mobile number + OTP is the primary sign-in for everyone. Password is an optional extra for owners. Residents cannot self-register: their account only activates against a resident record the owner created. The server decides the role after OTP; the app shows the matching experience.</p>
+  </header>
+
+  <div class="shots">
+    <!-- A-01 Splash -->
+    <div class="shot">
+      <div class="phone" style="background:var(--navy)">
+        <div class="sb dark"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="empty" style="color:#fff">
+          <div style="width:72px;height:72px;border-radius:20px;background:#fff;color:var(--navy);display:grid;place-items:center"><svg class="ico" style="width:40px;height:40px"><use href="#i-bed"/></svg></div>
+          <div style="font-size:24px;font-weight:700">PG ERP</div>
+          <div class="t-m" style="color:#B9C6E4">Run your PG from your phone</div>
+        </div>
+        <div style="text-align:center;color:#8EA0C8;font-size:11px;padding:0 0 26px">v1.0 · Made for Indian PGs</div>
+      </div>
+      <div class="cap"><span><code>A-01</code><b>Splash</b></span><span class="to">→ A-02 on first launch · → last role's Home if session is valid</span></div>
+    </div>
+
+    <!-- A-02 Language -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="body" style="padding-top:28px">
+          <div class="tile" style="width:44px;height:44px;background:var(--blue-50);color:var(--blue)"><svg class="ico lg"><use href="#i-globe"/></svg></div>
+          <div><div class="t-xl w7">Choose your language</div><div class="mut">You can change this later in Settings.</div></div>
+          <div class="list">
+            <div class="li"><div class="tx"><div>English</div></div><div class="radio on"></div></div>
+            <div class="li"><div class="tx"><div class="ind">हिन्दी</div><div class="t-s mut">Hindi</div></div><div class="radio"></div></div>
+            <div class="li"><div class="tx"><div class="guj">ગુજરાતી</div><div class="t-s mut">Gujarati</div></div><div class="radio"></div></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn p">Continue</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-02</code><b>Language selection</b></span><span class="to">→ A-03 Welcome</span></div>
+    </div>
+
+    <!-- A-03 Welcome -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="body" style="padding-top:16px">
+          <svg viewBox="0 0 280 150" width="100%" aria-hidden="true">
+            <rect x="0" y="0" width="280" height="150" rx="16" fill="#EDF2FE"/>
+            <rect x="40" y="40" width="90" height="100" rx="4" fill="#fff" stroke="#C9D7F7"/>
+            <rect x="140" y="20" width="100" height="120" rx="4" fill="#0F2A5C"/>
+            <g fill="#FFD27A"><rect x="152" y="34" width="16" height="14" rx="2"/><rect x="182" y="34" width="16" height="14" rx="2"/><rect x="212" y="34" width="16" height="14" rx="2"/><rect x="152" y="60" width="16" height="14" rx="2"/><rect x="212" y="60" width="16" height="14" rx="2"/><rect x="182" y="86" width="16" height="14" rx="2"/></g>
+            <g fill="#33508C"><rect x="182" y="60" width="16" height="14" rx="2"/><rect x="152" y="86" width="16" height="14" rx="2"/><rect x="212" y="86" width="16" height="14" rx="2"/></g>
+            <rect x="180" y="112" width="20" height="28" rx="2" fill="#FFD27A"/>
+            <g fill="#C9D7F7"><rect x="52" y="54" width="14" height="12" rx="2"/><rect x="78" y="54" width="14" height="12" rx="2"/><rect x="104" y="54" width="14" height="12" rx="2"/><rect x="52" y="80" width="14" height="12" rx="2"/><rect x="78" y="80" width="14" height="12" rx="2"/><rect x="104" y="80" width="14" height="12" rx="2"/></g>
+            <rect x="0" y="138" width="280" height="12" fill="#D7DEE8"/>
+          </svg>
+          <div><div class="t-xl w7">Welcome</div><div class="mut">How will you use PG ERP?</div></div>
+          <div class="card row" style="border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-50)">
+            <div class="tile" style="background:var(--navy);color:#fff"><svg class="ico"><use href="#i-bldg"/></svg></div>
+            <div style="flex:1"><div class="w7">I own or manage a PG</div><div class="t-s mut">Properties, residents, rent, staff</div></div><div class="radio on"></div>
+          </div>
+          <div class="card row">
+            <div class="tile" style="background:var(--blue-50);color:var(--blue)"><svg class="ico"><use href="#i-bed"/></svg></div>
+            <div style="flex:1"><div class="w7">I stay in a PG</div><div class="t-s mut">Pay rent, raise complaints</div></div><div class="radio"></div>
+          </div>
+          <div class="btn p">Continue with mobile number</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-03</code><b>Welcome &amp; role intent</b></span><span class="to">Owner → A-04 · Resident → A-04 (resident copy). This choice only sets screen copy; the real role comes from the server after OTP.</span></div>
+    </div>
+
+    <!-- A-04 Mobile entry -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1></h1></div>
+        <div class="body">
+          <div><div class="t-xl w7">Enter your mobile number</div><div class="mut">We'll send a 6-digit OTP by SMS. New owners can register with the same step.</div></div>
+          <div class="fld"><label>Mobile number</label><div class="inp focus" style="height:50px;font-size:16px"><span class="pre">🇮🇳 +91</span><span class="num">98250 41736</span></div></div>
+          <div class="row t-s mut" style="align-items:flex-start"><div class="radio on" style="width:16px;height:16px;border-radius:4px;border-width:0;background:var(--blue)"></div><span>I agree to the <span style="color:var(--blue)">Terms</span> and <span style="color:var(--blue)">Privacy Policy</span></span></div>
+          <div style="flex:1"></div>
+          <div class="btn p">Get OTP</div>
+          <div class="t-s mut" style="text-align:center">Have a password? <span style="color:var(--blue);font-weight:600">Log in with password</span></div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-04</code><b>Mobile number (+91)</b></span><span class="to">→ A-05 OTP · Validates 10 digits starting 6–9</span></div>
+    </div>
+
+    <!-- A-05 OTP -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1></h1></div>
+        <div class="body">
+          <div><div class="t-xl w7">Verify your number</div><div class="mut">Enter the code sent to <b class="num">+91 98250 41736</b> <span style="color:var(--blue);font-weight:600">Edit</span></div></div>
+          <div class="otp num"><div>4</div><div>7</div><div>2</div><div class="f">9</div><div></div><div></div></div>
+          <div class="between t-s"><span class="mut">Auto-reading SMS…</span><span class="mut">Resend in <b class="num">0:24</b></span></div>
+          <div style="flex:1"></div>
+          <div class="btn dis">Verify</div>
+          <div class="t-s mut" style="text-align:center">Didn't get it? <span style="color:var(--green);font-weight:600">Get OTP on WhatsApp</span></div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-05</code><b>OTP verification</b></span><span class="to">New owner → A-07 · Existing single account → Home · Multiple accounts → A-13</span></div>
+    </div>
+
+    <!-- A-06 OTP error -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1></h1></div>
+        <div class="body">
+          <div><div class="t-xl w7">Verify your number</div><div class="mut">Enter the code sent to <b class="num">+91 98250 41736</b></div></div>
+          <div class="otp e num"><div>4</div><div>7</div><div>2</div><div>9</div><div>1</div><div>0</div></div>
+          <div class="help err" style="font-size:12px"><svg class="ico sm"><use href="#i-alert"/></svg>That code is incorrect. 2 attempts left.</div>
+          <div class="between t-s"><span></span><span style="color:var(--blue);font-weight:600">Resend OTP</span></div>
+          <div style="flex:1"></div>
+          <div class="card row" style="background:var(--amber-50);border-color:#F4DDB0"><svg class="ico" style="color:var(--amber)"><use href="#i-lock"/></svg><span class="t-s">After 3 wrong attempts, OTP login is paused for 10 minutes to protect your account.</span></div>
+          <div class="btn p">Verify</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-06</code><b>OTP · validation error</b></span><span class="to">Fields clear on next keypress · Rate limit enforced server-side</span></div>
+    </div>
+
+    <!-- A-07 Profile setup -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Your profile</h1><span class="t-s mut">1 of 4</span></div>
+        <div class="body">
+          <div class="steps"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="row"><div class="av" style="width:58px;height:58px;background:var(--blue-50);color:var(--blue)"><svg class="ico lg"><use href="#i-cam"/></svg></div><div><div class="w6">Add photo</div><div class="t-s mut">Optional</div></div></div>
+          <div class="fld"><label>Full name *</label><div class="inp">Deven Patel</div></div>
+          <div class="fld"><label>Email</label><div class="inp">deven.patel@gmail.com</div><div class="help">Receipts and subscription invoices are sent here</div></div>
+          <div class="fld"><label>Mobile</label><div class="inp" style="background:var(--slate-50)"><span class="pre">+91</span>98250 41736<svg class="ico sm" style="margin-left:auto;color:var(--green)"><use href="#i-shield"/></svg></div></div>
+          <div class="card between"><div><div class="w6">Also set a password</div><div class="t-s mut">Log in without OTP when SMS is slow</div></div><div class="toggle"></div></div>
+          <div style="flex:1"></div>
+          <div class="btn p">Next: create business</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-07</code><b>Owner registration · profile</b></span><span class="to">→ A-08</span></div>
+    </div>
+
+    <!-- A-08 Business setup -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Your PG business</h1><span class="t-s mut">2 of 4</span></div>
+        <div class="body">
+          <div class="steps"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+          <div class="fld"><label>Business name *</label><div class="inp">Deven PG Group</div><div class="help">Shown on receipts and invoices</div></div>
+          <div class="fld"><label>How many PGs do you run? *</label><div class="chips"><span class="chip">1</span><span class="chip on">2–5</span><span class="chip">6–20</span><span class="chip">20+</span></div></div>
+          <div class="fld"><label>Head office city *</label><div class="inp between"><span>Vadodara, Gujarat</span><svg class="ico sm"><use href="#i-down"/></svg></div></div>
+          <div class="fld"><label>GSTIN</label><div class="inp ph">Optional · 24ABCDE1234F1Z5</div></div>
+          <div class="fld"><label>Rent due day</label><div class="inp between"><span>5th of every month</span><svg class="ico sm"><use href="#i-down"/></svg></div><div class="help">You can change this per property later</div></div>
+          <div style="flex:1"></div>
+          <div class="btn p">Next: add first property</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-08</code><b>Create PG business</b></span><span class="to">Creates the tenant record · → A-09</span></div>
+    </div>
+
+    <!-- A-09 First property -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>First property</h1><span class="t-s mut">3 of 4</span></div>
+        <div class="body">
+          <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+          <div class="fld"><label>Property name *</label><div class="inp">Sunrise Boys PG</div></div>
+          <div class="fld"><label>For *</label><div class="seg"><div class="on">Boys</div><div>Girls</div><div>Co-living</div></div></div>
+          <div class="fld"><label>Address *</label><div class="inp">14, Shreeji Society, Alkapuri</div></div>
+          <div class="row" style="gap:8px"><div class="fld" style="flex:1"><label>City</label><div class="inp">Vadodara</div></div><div class="fld" style="width:96px"><label>PIN</label><div class="inp num">390007</div></div></div>
+          <div class="map"><svg class="ico lg pin" style="fill:#fff"><use href="#i-pin"/></svg><span class="bdg b-mute" style="position:absolute;left:8px;bottom:8px;background:#fff">Drag pin to adjust</span></div>
+          <div class="fld"><label>Contact number</label><div class="inp"><span class="pre">+91</span>98250 41736</div></div>
+          <div class="btn p">Next: rooms and beds</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-09</code><b>Add first property</b></span><span class="to">Amenities, photos, documents can be added later from Property details · → A-10</span></div>
+    </div>
+
+    <!-- A-10 Quick structure -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Rooms and beds</h1><span class="t-s mut">4 of 4</span></div>
+        <div class="body">
+          <div class="steps"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          <div class="mut t-s">Set up one building quickly. You can edit each room and bed afterwards.</div>
+          <div class="fld"><label>Building name</label><div class="inp">Block A</div></div>
+          <div class="row" style="gap:8px">
+            <div class="fld" style="flex:1"><label>Floors</label><div class="inp between"><span>−</span><b class="num">3</b><span>+</span></div></div>
+            <div class="fld" style="flex:1"><label>Rooms / floor</label><div class="inp between"><span>−</span><b class="num">5</b><span>+</span></div></div>
+          </div>
+          <div class="fld"><label>Default sharing</label><div class="chips"><span class="chip">1</span><span class="chip">2</span><span class="chip on">3</span><span class="chip">4</span><span class="chip">6</span></div></div>
+          <div class="fld"><label>Default rent per bed</label><div class="inp"><span class="mut">₹</span>7,500</div></div>
+          <div class="card" style="background:var(--blue-50);border-color:#CFDCFB">
+            <div class="lbl" style="color:var(--blue)">Preview</div>
+            <div class="w7">3 floors · 15 rooms · 45 beds</div>
+            <div class="t-s mut">Rooms A-101 to A-305 · Beds A, B, C</div>
+          </div>
+          <div class="btn p">Create 45 beds</div>
+          <div class="btn g" style="height:30px">Add another building</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-10</code><b>Quick building → floors → rooms → beds</b></span><span class="to">Bulk-creates the hierarchy in one transaction · → A-11</span></div>
+    </div>
+
+    <!-- A-11 Setup complete -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="empty">
+          <div style="width:76px;height:76px;border-radius:50%;background:var(--green-50);color:var(--green);display:grid;place-items:center"><svg class="ico" style="width:40px;height:40px;stroke-width:2.4"><use href="#i-check"/></svg></div>
+          <div class="t-xl w7">Sunrise Boys PG is ready</div>
+          <div class="mut">1 building · 15 rooms · 45 beds created. Your 14-day Professional trial has started.</div>
+          <div class="list" style="width:100%;text-align:left;margin-top:6px">
+            <div class="li"><svg class="ico" style="color:var(--green)"><use href="#i-check"/></svg><div class="tx"><div>Property and beds</div></div></div>
+            <div class="li"><div class="radio"></div><div class="tx"><div>Add your first resident</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><div class="radio"></div><div class="tx"><div>Set up UPI for rent</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+          </div>
+        </div>
+        <div style="padding:0 14px 18px"><div class="btn p">Go to dashboard</div></div>
+      </div>
+      <div class="cap"><span><code>A-11</code><b>Setup success</b></span><span class="to">→ D-07 (new-owner dashboard)</span></div>
+    </div>
+
+    <!-- A-12 Resident invite -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="body" style="padding-top:20px">
+          <div class="card" style="background:#E7F7EC;border-color:#CBEBD5">
+            <div class="row t-s" style="color:var(--green);font-weight:700"><svg class="ico sm"><use href="#i-chat"/></svg>WhatsApp · Sunrise Boys PG</div>
+            <div class="t-s" style="margin-top:6px">Hi Rohan, you've been added to <b>Sunrise Boys PG</b>, Room A-204, Bed B. Tap to activate your resident account: pgerp.in/i/7KQ2</div>
+          </div>
+          <div class="t-xs mut2" style="text-align:center">Opening the link launches the app ↓</div>
+          <div class="prop-img"><svg viewBox="0 0 280 92" width="100%" height="92" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect x="90" y="18" width="100" height="62" fill="#fff" stroke="#C9D7F7"/><g fill="#C9D7F7"><rect x="102" y="28" width="14" height="12"/><rect x="132" y="28" width="14" height="12"/><rect x="162" y="28" width="14" height="12"/><rect x="102" y="50" width="14" height="12"/><rect x="162" y="50" width="14" height="12"/></g><rect x="132" y="52" width="16" height="28" fill="#0F2A5C"/></svg></div>
+          <div><div class="t-xl w7">You're invited</div><div class="mut">Sunrise Boys PG · Alkapuri, Vadodara</div></div>
+          <div class="card stack" style="gap:6px">
+            <div class="between t-s"><span class="mut">Room / Bed</span><b>A-204 · Bed B</b></div>
+            <div class="between t-s"><span class="mut">Check-in</span><b>1 Dec 2026</b></div>
+            <div class="between t-s"><span class="mut">Monthly rent</span><b class="num">₹8,000</b></div>
+            <div class="between t-s"><span class="mut">Registered mobile</span><b class="num">+91 ••••• •2207</b></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn p">Verify mobile to activate</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-12</code><b>Resident invitation activation</b></span><span class="to">→ A-05 OTP (must match the mobile the owner entered) → Resident Home. Mismatch shows "This invite is for a different number. Ask your PG manager to update it."</span></div>
+    </div>
+
+    <!-- A-13 Account selection -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="body" style="padding-top:28px">
+          <div><div class="t-xl w7">Choose an account</div><div class="mut">+91 98765 12207 is linked to more than one account.</div></div>
+          <div class="card row" style="border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-50)">
+            <div class="tile" style="background:var(--blue-50);color:var(--blue)"><svg class="ico"><use href="#i-bed"/></svg></div>
+            <div style="flex:1"><div class="w7">Resident · Sunrise Boys PG</div><div class="t-s mut">A-204, Bed B · Vadodara</div></div><span class="bdg b-ok">Active</span>
+          </div>
+          <div class="card row">
+            <div class="tile" style="background:var(--navy);color:#fff"><svg class="ico"><use href="#i-bldg"/></svg></div>
+            <div style="flex:1"><div class="w7">Staff · Royal PG</div><div class="t-s mut">Warden · Ahmedabad</div></div><span class="bdg b-mute">Staff</span>
+          </div>
+          <div class="card row" style="opacity:.6">
+            <div class="tile" style="background:var(--slate-50);color:var(--ink-3)"><svg class="ico"><use href="#i-bed"/></svg></div>
+            <div style="flex:1"><div class="w7">Resident · Krishna PG</div><div class="t-s mut">Checked out 30 Jun 2025 · view only</div></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="t-s mut" style="text-align:center">You can switch accounts later from Profile.</div>
+          <div class="btn p">Continue</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-13</code><b>Account selection</b></span><span class="to">Lists only accounts the server permits for this number. Each opens its own app shell and permissions.</span></div>
+    </div>
+
+    <!-- A-14 Forgot password -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Reset password</h1></div>
+        <div class="body">
+          <div class="card row" style="background:var(--green-50);border-color:#CBEBD5"><svg class="ico" style="color:var(--green)"><use href="#i-check"/></svg><span class="t-s">Mobile verified with OTP</span></div>
+          <div class="fld"><label>New password</label><div class="inp focus between"><span>••••••••••</span><span class="t-s" style="color:var(--blue);font-weight:600">Show</span></div></div>
+          <div class="stack" style="gap:4px">
+            <div class="bar"><i style="width:66%;background:var(--amber)"></i></div>
+            <div class="t-s" style="color:var(--amber);font-weight:600">Medium strength</div>
+          </div>
+          <div class="t-s stack" style="gap:4px">
+            <div class="row" style="gap:6px;color:var(--green)"><svg class="ico sm"><use href="#i-check"/></svg>At least 8 characters</div>
+            <div class="row" style="gap:6px;color:var(--green)"><svg class="ico sm"><use href="#i-check"/></svg>One number</div>
+            <div class="row mut2" style="gap:6px"><svg class="ico sm"><use href="#i-x"/></svg>One symbol (! @ # ₹)</div>
+          </div>
+          <div class="fld"><label>Confirm password</label><div class="inp">••••••••••</div></div>
+          <div style="flex:1"></div>
+          <div class="btn p">Save password</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-14</code><b>Forgot / reset password</b></span><span class="to">Reached from A-04 "Log in with password" → Forgot · OTP first, then this · Signs out other devices</span></div>
+    </div>
+
+    <!-- A-15 Security settings -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Account security</h1></div>
+        <div class="body">
+          <div class="list">
+            <div class="li"><svg class="ico mut"><use href="#i-finger"/></svg><div class="tx"><div>App lock</div><div class="t-s mut">Fingerprint or face to open</div></div><div class="toggle on"></div></div>
+            <div class="li"><svg class="ico mut"><use href="#i-lock"/></svg><div class="tx"><div>Password</div><div class="t-s mut">Last changed 12 Aug 2026</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><svg class="ico mut"><use href="#i-bell"/></svg><div class="tx"><div>New login alerts</div><div class="t-s mut">SMS + push</div></div><div class="toggle on"></div></div>
+          </div>
+          <div class="sec"><b>Logged-in devices</b><span class="t-s mut">2</span></div>
+          <div class="list">
+            <div class="li"><svg class="ico mut"><use href="#i-phone"/></svg><div class="tx"><div>Samsung Galaxy M34</div><div class="t-s mut">Vadodara · This device</div></div><span class="bdg b-ok">Current</span></div>
+            <div class="li"><svg class="ico mut"><use href="#i-phone"/></svg><div class="tx"><div>iPhone 13</div><div class="t-s mut">Ahmedabad · 3 days ago</div></div><span class="t-s" style="color:var(--red);font-weight:600">Log out</span></div>
+          </div>
+          <div class="list"><div class="li" style="color:var(--red)"><svg class="ico"><use href="#i-logout"/></svg><div class="tx"><div>Log out of all devices</div></div></div></div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-15</code><b>Account security settings</b></span><span class="to">More → Settings → Security</span></div>
+    </div>
+
+    <!-- A-16 Logout confirm -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><h1>Settings</h1></div>
+        <div class="body"><div class="list"><div class="li"><div class="tx"><div>Owner profile</div></div></div><div class="li"><div class="tx"><div>Business profile</div></div></div><div class="li"><div class="tx"><div>Security</div></div></div><div class="li"><div class="tx"><div>Log out</div></div></div></div></div>
+        <div class="scrim"></div>
+        <div class="sheet">
+          <div class="grab"></div>
+          <div class="tile" style="background:var(--red-50);color:var(--red)"><svg class="ico"><use href="#i-logout"/></svg></div>
+          <b class="t-l">Log out of PG ERP?</b>
+          <span class="mut">You'll need an OTP to log in again. Unsynced cash entries on this phone: <b>0</b>.</span>
+          <div class="btn d">Log out</div>
+          <div class="btn s">Stay logged in</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-16</code><b>Logout confirmation</b></span><span class="to">Warns if offline entries are pending sync · → A-04</span></div>
+    </div>
+
+    <!-- A-17 No internet -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="empty">
+          <div style="width:72px;height:72px;border-radius:20px;background:var(--slate-50);color:var(--ink-2);display:grid;place-items:center"><svg class="ico" style="width:34px;height:34px"><use href="#i-wifioff"/></svg></div>
+          <div class="t-l w7">You're offline</div>
+          <div class="mut">We can't send an OTP without internet. Check mobile data or Wi-Fi and try again.</div>
+          <div class="btn p" style="width:100%"><svg class="ico"><use href="#i-refresh"/></svg>Try again</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>A-17</code><b>No internet (auth)</b></span><span class="to">Inside the app, an offline banner replaces this and cached data stays readable</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= STAGE 4b · DASHBOARD ======================= -->
+<section class="blk" id="dashboard">
+  <header>
+    <div class="eyebrow">Stage 4 · Module 1</div>
+    <h2>Owner dashboard and property switching</h2>
+    <p>The switcher in the app bar is the single source of property scope. "All Properties" shows the business totals and a per-property comparison; picking one property swaps every number, list and quick action to that property and the chip shows its name.</p>
+  </header>
+
+  <div class="shots">
+    <!-- D-01 All properties -->
+    <div class="shot">
+      <div class="phone tall">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab">
+          <div style="flex:1"><div class="t-s mut">Namaste, Deven</div><div class="chip" style="margin-top:3px;height:30px;font-size:13px;color:var(--ink)"><svg class="ico sm"><use href="#i-bldg"/></svg>All Properties · 3<svg class="ico sm"><use href="#i-down"/></svg></div></div>
+          <div class="ib"><svg class="ico"><use href="#i-search"/></svg></div>
+          <div class="ib"><svg class="ico"><use href="#i-bell"/></svg><span class="dot"></span></div>
+        </div>
+        <div class="body">
+          <div class="chips"><span class="chip on">Nov 2026</span><span class="chip">Oct</span><span class="chip">Sep</span><span class="chip"><svg class="ico sm"><use href="#i-cal"/></svg>Custom</span></div>
+          <div class="card row" style="gap:14px">
+            <svg viewBox="0 0 64 64" width="72" height="72" role="img" aria-label="82% occupancy"><circle cx="32" cy="32" r="26" fill="none" stroke="#EDF2FE" stroke-width="8"/><circle cx="32" cy="32" r="26" fill="none" stroke="#2457E6" stroke-width="8" stroke-linecap="round" stroke-dasharray="133.9 163.4" transform="rotate(-90 32 32)"/><text x="32" y="36" text-anchor="middle" font-size="13" font-weight="700" fill="#111A2B">82%</text></svg>
+            <div style="flex:1" class="stack">
+              <div class="lbl">Occupancy · 200 beds</div>
+              <div class="t-s" style="display:grid;grid-template-columns:1fr 1fr;gap:4px 10px">
+                <span><b class="num">164</b> <span class="mut">occupied</span></span><span><b class="num">22</b> <span class="mut">available</span></span>
+                <span><b class="num">9</b> <span class="mut">reserved</span></span><span><b class="num">5</b> <span class="mut">maint.</span></span>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="card"><div class="lbl">Collected</div><div class="t-l w7 num" style="color:var(--green)">₹10,84,500</div><div class="t-xs mut">of ₹12,26,500 billed</div></div>
+            <div class="card"><div class="lbl">Pending rent</div><div class="t-l w7 num" style="color:var(--red)">₹1,42,000</div><div class="t-xs mut">18 residents · 7 overdue</div></div>
+            <div class="card"><div class="lbl">Expenses</div><div class="t-l w7 num">₹3,18,400</div><div class="t-xs mut">↓ 1% vs Oct</div></div>
+            <div class="card"><div class="lbl">Net this month</div><div class="t-l w7 num">₹7,66,100</div><div class="t-xs mut">Collected − expenses</div></div>
+          </div>
+          <div class="sec"><b>Quick actions</b></div>
+          <div class="qa">
+            <div><span class="tile" style="background:var(--blue-50);color:var(--blue)"><svg class="ico"><use href="#i-users"/></svg></span>Add resident</div>
+            <div><span class="tile" style="background:var(--green-50);color:var(--green)"><svg class="ico"><use href="#i-rupee"/></svg></span>Collect rent</div>
+            <div><span class="tile" style="background:#EEEAFB;color:#5B3FC4"><svg class="ico"><use href="#i-cal"/></svg></span>Reservation</div>
+            <div><span class="tile" style="background:var(--amber-50);color:var(--amber)"><svg class="ico"><use href="#i-receipt"/></svg></span>Add expense</div>
+            <div><span class="tile" style="background:var(--red-50);color:var(--red)"><svg class="ico"><use href="#i-wrench"/></svg></span>Complaints</div>
+            <div><span class="tile" style="background:var(--slate-50);color:var(--ink-2)"><svg class="ico"><use href="#i-bldg"/></svg></span>Add property</div>
+          </div>
+          <div class="sec"><b>Needs attention</b></div>
+          <div class="list">
+            <div class="li"><span class="tile" style="width:30px;height:30px;background:var(--red-50);color:var(--red)"><svg class="ico sm"><use href="#i-rupee"/></svg></span><div class="tx"><div>7 rents overdue</div><div class="t-s mut">₹56,500 · oldest 12 days</div></div><span class="btn wa sm" style="padding:0 10px">Remind</span></div>
+            <div class="li"><span class="tile" style="width:30px;height:30px;background:var(--amber-50);color:var(--amber)"><svg class="ico sm"><use href="#i-wrench"/></svg></span><div class="tx"><div>5 open complaints</div><div class="t-s mut">2 unassigned</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><span class="tile" style="width:30px;height:30px;background:var(--blue-50);color:var(--blue)"><svg class="ico sm"><use href="#i-badge"/></svg></span><div class="tx"><div>3 KYC pending</div><div class="t-s mut">1 police verification due</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+          </div>
+          <div class="sec"><b>Properties</b><a>See all</a></div>
+          <div class="list">
+            <div class="li"><div class="tx"><div>Sunrise Boys PG</div><div class="t-s mut">Vadodara · 74/80 beds</div><div class="bar" style="margin-top:6px"><i style="width:93%"></i></div></div><div style="text-align:right;width:76px"><div class="w7">93%</div><div class="t-xs" style="color:var(--red)">₹46,500 due</div></div></div>
+            <div class="li"><div class="tx"><div>Royal PG</div><div class="t-s mut">Ahmedabad · 55/70 beds</div><div class="bar" style="margin-top:6px"><i style="width:79%"></i></div></div><div style="text-align:right;width:76px"><div class="w7">79%</div><div class="t-xs" style="color:var(--red)">₹61,000 due</div></div></div>
+            <div class="li"><div class="tx"><div>Krishna PG</div><div class="t-s mut">Surat · 35/50 beds</div><div class="bar" style="margin-top:6px"><i style="width:70%;background:var(--amber)"></i></div></div><div style="text-align:right;width:76px"><div class="w7">70%</div><div class="t-xs" style="color:var(--red)">₹34,500 due</div></div></div>
+          </div>
+          <div class="sec"><b>This week</b></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="card"><div class="row t-s mut" style="gap:5px"><svg class="ico sm" style="color:var(--green)"><use href="#i-cal-in"/></svg>Check-ins</div><div class="t-l w7">6</div><div class="t-xs mut">Next: Rohan S., 1 Dec</div></div>
+            <div class="card"><div class="row t-s mut" style="gap:5px"><svg class="ico sm" style="color:var(--amber)"><use href="#i-cal-out"/></svg>Check-outs</div><div class="t-l w7">3</div><div class="t-xs mut">Next: Kunal M., 25 Nov</div></div>
+          </div>
+          <div class="sec"><b>Recent activity</b><a>View all</a></div>
+          <div class="list">
+            <div class="li"><div class="av" style="background:var(--green-50);color:var(--green)"><svg class="ico sm"><use href="#i-rupee"/></svg></div><div class="tx"><div class="t-m">₹8,000 UPI from Aarav Patel</div><div class="t-xs mut">Sunrise · 10 min ago</div></div></div>
+            <div class="li"><div class="av" style="background:var(--amber-50);color:var(--amber)"><svg class="ico sm"><use href="#i-wrench"/></svg></div><div class="tx"><div class="t-m">AC not cooling · Room R-302</div><div class="t-xs mut">Royal · 42 min ago</div></div></div>
+          </div>
+        </div>
+        <div class="bn">
+          <div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div><svg class="ico"><use href="#i-grid"/></svg>More</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>D-01</code><b>Owner dashboard · All Properties (full scroll)</b></span><span class="to">Switcher → D-02 · Property row → D-03 · Remind → WhatsApp template sheet · Cards → Finance / Complaints / KYC lists filtered</span></div>
+    </div>
+
+    <!-- D-02 Switcher -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div style="flex:1"><div class="t-s mut">Namaste, Deven</div><div class="chip" style="margin-top:3px;height:30px">All Properties · 3</div></div></div>
+        <div class="body"><div class="card" style="height:110px"></div><div class="card" style="height:150px"></div></div>
+        <div class="scrim"></div>
+        <div class="sheet">
+          <div class="grab"></div>
+          <div class="between"><b class="t-l">Switch property</b><svg class="ico mut"><use href="#i-x"/></svg></div>
+          <div class="inp ph"><svg class="ico sm"><use href="#i-search"/></svg>Search property or city</div>
+          <div class="list">
+            <div class="li" style="background:var(--blue-50)"><div class="tile" style="width:34px;height:34px;background:var(--navy);color:#fff"><svg class="ico sm"><use href="#i-grid"/></svg></div><div class="tx"><div>All Properties</div><div class="t-s mut">3 properties · 200 beds</div></div><svg class="ico" style="color:var(--blue)"><use href="#i-check"/></svg></div>
+            <div class="li"><div class="tile" style="width:34px;height:34px;background:#DCE7FA;color:var(--navy);font-weight:700;font-size:12px">SB</div><div class="tx"><div>Sunrise Boys PG</div><div class="t-s mut">Vadodara · Boys · 93% full</div></div></div>
+            <div class="li"><div class="tile" style="width:34px;height:34px;background:#FDE7E7;color:#9B1C1C;font-weight:700;font-size:12px">RP</div><div class="tx"><div>Royal PG</div><div class="t-s mut">Ahmedabad · Co-living · 79%</div></div></div>
+            <div class="li"><div class="tile" style="width:34px;height:34px;background:#FFF1D6;color:#8A5300;font-weight:700;font-size:12px">KP</div><div class="tx"><div>Krishna PG</div><div class="t-s mut">Surat · Girls · 70%</div></div></div>
+          </div>
+          <div class="btn s"><svg class="ico"><use href="#i-plus"/></svg>Add property</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>D-02</code><b>Property switcher (bottom sheet)</b></span><span class="to">Choice persists across tabs and app restarts · Search appears when 6+ properties · Single-property owners never see this sheet</span></div>
+    </div>
+
+    <!-- D-03 Single property -->
+    <div class="shot">
+      <div class="phone tall">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab">
+          <div style="flex:1"><div class="t-s mut">Namaste, Deven</div><div class="chip" style="margin-top:3px;height:30px;font-size:13px;color:var(--ink);border-color:var(--blue)"><span style="width:8px;height:8px;border-radius:50%;background:var(--blue)"></span>Sunrise Boys PG<svg class="ico sm"><use href="#i-down"/></svg></div></div>
+          <div class="ib"><svg class="ico"><use href="#i-bell"/></svg><span class="dot"></span></div>
+        </div>
+        <div class="body">
+          <div class="prop-img" style="height:110px">
+            <svg viewBox="0 0 280 110" width="100%" height="110" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect x="70" y="16" width="140" height="84" fill="#fff" stroke="#C9D7F7"/><g fill="#C9D7F7"><rect x="84" y="26" width="18" height="14"/><rect x="114" y="26" width="18" height="14"/><rect x="148" y="26" width="18" height="14"/><rect x="178" y="26" width="18" height="14"/><rect x="84" y="50" width="18" height="14"/><rect x="178" y="50" width="18" height="14"/><rect x="114" y="50" width="18" height="14"/></g><rect x="148" y="50" width="18" height="14" fill="#FFD27A"/><rect x="128" y="72" width="24" height="28" fill="#0F2A5C"/></svg>
+            <span class="bdg" style="position:absolute;left:10px;bottom:10px;background:#fff;color:var(--ink)"><svg class="ico sm"><use href="#i-pin"/></svg>Alkapuri, Vadodara</span>
+            <span class="bdg b-ok" style="position:absolute;right:10px;bottom:10px">Active</span>
+          </div>
+          <div class="seg"><div class="on">Overview</div><div>Beds</div><div>Money</div></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center">
+            <div class="card" style="padding:8px 2px"><div class="w7 t-l">2</div><div class="t-xs mut">Buildings</div></div>
+            <div class="card" style="padding:8px 2px"><div class="w7 t-l">26</div><div class="t-xs mut">Rooms</div></div>
+            <div class="card" style="padding:8px 2px"><div class="w7 t-l">80</div><div class="t-xs mut">Beds</div></div>
+            <div class="card" style="padding:8px 2px"><div class="w7 t-l" style="color:var(--blue)">93%</div><div class="t-xs mut">Occupied</div></div>
+          </div>
+          <div class="card stack" style="gap:8px">
+            <div class="between"><b>Bed status</b><span class="t-s" style="color:var(--blue);font-weight:600">Open map</span></div>
+            <div style="display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px">
+              <i style="flex:74;background:var(--navy)"></i><i style="flex:2;background:var(--blue)"></i><i style="flex:3;background:var(--green)"></i><i style="flex:1;background:var(--amber)"></i>
+            </div>
+            <div class="t-s" style="display:grid;grid-template-columns:1fr 1fr;gap:2px 10px">
+              <span><b>74</b> <span class="mut">Occupied</span></span><span><b>3</b> <span class="mut">Available</span></span><span><b>2</b> <span class="mut">Reserved</span></span><span><b>1</b> <span class="mut">Maintenance</span></span>
+            </div>
+          </div>
+          <div class="card stack" style="gap:6px">
+            <div class="between"><div class="lbl">November rent</div><span class="bdg b-warn">91% collected</span></div>
+            <div class="between"><span class="t-xl w7 num">₹4,71,500</span><span class="t-s mut num">of ₹5,18,000</span></div>
+            <div class="bar"><i style="width:91%;background:var(--green)"></i></div>
+            <div class="between t-s"><span class="mut">Pending <b style="color:var(--red)" class="num">₹46,500</b> · 6 residents</span><span style="color:var(--blue);font-weight:600">Collect</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="card"><div class="lbl">Expenses</div><div class="t-l w7 num">₹1,12,300</div><div class="t-xs mut">Electricity ₹38,200 top</div></div>
+            <div class="card"><div class="lbl">Deposits held</div><div class="t-l w7 num">₹7,40,000</div><div class="t-xs mut">74 residents</div></div>
+          </div>
+          <div class="sec"><b>Quick actions · Sunrise</b></div>
+          <div class="qa">
+            <div><span class="tile" style="background:var(--blue-50);color:var(--blue)"><svg class="ico"><use href="#i-users"/></svg></span>Add resident</div>
+            <div><span class="tile" style="background:var(--green-50);color:var(--green)"><svg class="ico"><use href="#i-rupee"/></svg></span>Collect rent</div>
+            <div><span class="tile" style="background:#EEEAFB;color:#5B3FC4"><svg class="ico"><use href="#i-door"/></svg></span>Visitor entry</div>
+          </div>
+          <div class="sec"><b>Upcoming</b></div>
+          <div class="list">
+            <div class="li"><span class="bdg b-ok">IN</span><div class="tx"><div>Rohan Sharma</div><div class="t-s mut">A-204 · Bed B · 1 Dec</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><span class="bdg b-warn">OUT</span><div class="tx"><div>Kunal Mehta</div><div class="t-s mut">B-110 · Bed A · 25 Nov · deposit ₹10,000</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+          </div>
+        </div>
+        <div class="bn">
+          <div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div><svg class="ico"><use href="#i-grid"/></svg>More</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>D-03</code><b>Individual property dashboard · Sunrise</b></span><span class="to">Beds tab / Open map → occupancy map (Phase 2) · Money tab → Finance scoped to Sunrise · Check-out row → settlement flow (Phase 3)</span></div>
+    </div>
+
+    <!-- D-04 More menu -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><h1>More</h1><div class="chip" style="height:28px">Sunrise Boys PG<svg class="ico sm"><use href="#i-down"/></svg></div></div>
+        <div class="body" style="gap:10px">
+          <div class="card row"><div class="av" style="width:42px;height:42px;background:var(--navy);color:#fff">DP</div><div style="flex:1"><div class="w7">Deven Patel</div><div class="t-s mut">Deven PG Group · Owner</div></div><span class="bdg b-info">Professional</span></div>
+          <div class="lbl">Operations</div>
+          <div class="qa">
+            <div><span class="tile" style="background:var(--red-50);color:var(--red)"><svg class="ico"><use href="#i-wrench"/></svg></span>Complaints<span class="bdg b-err" style="font-size:9.5px">5</span></div>
+            <div><span class="tile" style="background:#EEEAFB;color:#5B3FC4"><svg class="ico"><use href="#i-cal"/></svg></span>Reservations</div>
+            <div><span class="tile" style="background:var(--blue-50);color:var(--blue)"><svg class="ico"><use href="#i-badge"/></svg></span>Staff</div>
+            <div><span class="tile" style="background:var(--slate-50);color:var(--ink-2)"><svg class="ico"><use href="#i-door"/></svg></span>Visitors</div>
+            <div><span class="tile" style="background:var(--amber-50);color:var(--amber)"><svg class="ico"><use href="#i-food"/></svg></span>Food &amp; mess</div>
+            <div><span class="tile" style="background:var(--green-50);color:var(--green)"><svg class="ico"><use href="#i-mega"/></svg></span>Notices</div>
+          </div>
+          <div class="lbl">Business</div>
+          <div class="list">
+            <div class="li"><svg class="ico mut"><use href="#i-chart"/></svg><div class="tx"><div>Reports</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><svg class="ico mut"><use href="#i-star"/></svg><div class="tx"><div>Subscription</div><div class="t-s mut">Renews 14 Jan 2027</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><svg class="ico mut"><use href="#i-gear"/></svg><div class="tx"><div>Settings</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+            <div class="li"><svg class="ico mut"><use href="#i-chat"/></svg><div class="tx"><div>Help &amp; support</div></div><svg class="ico sm mut2"><use href="#i-right"/></svg></div>
+          </div>
+        </div>
+        <div class="bn">
+          <div><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div class="on"><svg class="ico"><use href="#i-grid"/></svg>More</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>D-04</code><b>More tab</b></span><span class="to">Holds M5, M9–M14 and Indian add-ons (visitors, mess) without adding bottom-nav items</span></div>
+    </div>
+
+    <!-- D-05 Activity -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Activity</h1><div class="ib"><svg class="ico"><use href="#i-search"/></svg></div></div>
+        <div class="body">
+          <div class="chips"><span class="chip on">All</span><span class="chip">Payments</span><span class="chip">Residents</span><span class="chip">Complaints</span></div>
+          <div class="lbl">Today</div>
+          <div class="list">
+            <div class="li"><div class="av" style="background:var(--green-50);color:var(--green)"><svg class="ico sm"><use href="#i-rupee"/></svg></div><div class="tx"><div class="t-m">Aarav Patel paid ₹8,000 by UPI</div><div class="t-xs mut">Sunrise · A-105 · 9:31 AM</div></div></div>
+            <div class="li"><div class="av" style="background:var(--amber-50);color:var(--amber)"><svg class="ico sm"><use href="#i-wrench"/></svg></div><div class="tx"><div class="t-m">New complaint: AC not cooling</div><div class="t-xs mut">Royal · R-302 · 8:59 AM</div></div></div>
+            <div class="li"><div class="av" style="background:var(--blue-50);color:var(--blue)"><svg class="ico sm"><use href="#i-badge"/></svg></div><div class="tx"><div class="t-m">Sneha Joshi uploaded KYC</div><div class="t-xs mut">Krishna · K-201 · 8:12 AM</div></div></div>
+          </div>
+          <div class="lbl">Yesterday</div>
+          <div class="list">
+            <div class="li"><div class="av" style="background:#EEEAFB;color:#5B3FC4"><svg class="ico sm"><use href="#i-cal"/></svg></div><div class="tx"><div class="t-m">Bed A-204-B reserved for Rohan Sharma</div><div class="t-xs mut">Advance ₹2,000 · by Deven Patel</div></div></div>
+            <div class="li"><div class="av" style="background:var(--slate-50);color:var(--ink-2)"><svg class="ico sm"><use href="#i-receipt"/></svg></div><div class="tx"><div class="t-m">Expense ₹38,200 · MGVCL electricity</div><div class="t-xs mut">Sunrise · by Ramesh (manager)</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap"><span><code>D-05</code><b>Recent activity</b></span><span class="to">Each row deep-links to its record · Reads from the audit log, scoped by switcher</span></div>
+    </div>
+
+    <!-- D-06 Loading -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div style="flex:1"><div class="t-s mut">Namaste, Deven</div><div class="chip" style="margin-top:3px;height:30px">Royal PG<svg class="ico sm"><use href="#i-down"/></svg></div></div></div>
+        <div class="body">
+          <div class="skel" style="height:110px;border-radius:12px"></div>
+          <div class="skel" style="height:34px;border-radius:10px"></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><div class="skel" style="height:52px"></div><div class="skel" style="height:52px"></div><div class="skel" style="height:52px"></div><div class="skel" style="height:52px"></div></div>
+          <div class="card stack" style="gap:8px"><div class="skel" style="height:12px;width:45%"></div><div class="skel" style="height:12px"></div><div class="skel" style="height:12px;width:70%"></div></div>
+          <div class="card stack" style="gap:8px"><div class="skel" style="height:12px;width:35%"></div><div class="skel" style="height:24px;width:60%"></div><div class="skel" style="height:6px"></div></div>
+        </div>
+        <div class="bn"><div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div><svg class="ico"><use href="#i-grid"/></svg>More</div></div>
+      </div>
+      <div class="cap"><span><code>D-06</code><b>Loading · switching to Royal PG</b></span><span class="to">Chip updates instantly; skeleton mirrors final layout so nothing jumps</span></div>
+    </div>
+
+    <!-- D-07 Empty -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div style="flex:1"><div class="t-s mut">Namaste, Deven</div><div class="chip" style="margin-top:3px;height:30px">Sunrise Boys PG</div></div><div class="ib"><svg class="ico"><use href="#i-bell"/></svg></div></div>
+        <div class="body">
+          <div class="card stack" style="background:var(--navy);color:#fff;border-color:var(--navy)">
+            <div class="lbl" style="color:#9DB0D8">Getting started · 1 of 4 done</div>
+            <div class="steps"><i class="on" style="background:#fff"></i><i style="background:#33508C"></i><i style="background:#33508C"></i><i style="background:#33508C"></i></div>
+            <div class="w7 t-l">Add your first resident</div>
+            <div class="t-s" style="color:#C2CEE8">45 beds are ready. Add residents to start collecting rent.</div>
+            <div class="btn" style="background:#fff;color:var(--navy)">Add resident</div>
+          </div>
+          <div class="list">
+            <div class="li"><svg class="ico" style="color:var(--green)"><use href="#i-check"/></svg><div class="tx"><div>Property, rooms and beds</div></div></div>
+            <div class="li"><div class="radio"></div><div class="tx"><div>Add residents</div></div></div>
+            <div class="li"><div class="radio"></div><div class="tx"><div>Connect UPI / Razorpay</div><div class="t-s mut">Get rent straight to your bank</div></div></div>
+            <div class="li"><div class="radio"></div><div class="tx"><div>Set PG rules &amp; curfew</div></div></div>
+          </div>
+          <div class="card row"><div class="tile" style="background:var(--slate-50);color:var(--ink-2)"><svg class="ico"><use href="#i-chart"/></svg></div><span class="t-s mut">Occupancy and rent charts appear once you have residents.</span></div>
+        </div>
+        <div class="bn"><div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div><svg class="ico"><use href="#i-grid"/></svg>More</div></div>
+      </div>
+      <div class="cap"><span><code>D-07</code><b>Empty state · new owner</b></span><span class="to">Replaces KPIs until first resident exists · Checklist hides once complete</span></div>
+    </div>
+
+    <!-- D-08 Error / offline -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div style="background:var(--ink);color:#fff;font-size:11.5px;padding:6px 14px;display:flex;gap:6px;align-items:center"><svg class="ico sm"><use href="#i-wifioff"/></svg>Offline · showing data from 9:12 AM</div>
+        <div class="ab" style="padding-top:10px"><div style="flex:1"><div class="t-s mut">Namaste, Deven</div><div class="chip" style="margin-top:3px;height:30px">All Properties · 3</div></div></div>
+        <div class="body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="card"><div class="lbl">Collected</div><div class="t-l w7 num">₹10,76,500</div><div class="t-xs mut">as of 9:12 AM</div></div>
+            <div class="card"><div class="lbl">Pending</div><div class="t-l w7 num">₹1,50,000</div><div class="t-xs mut">as of 9:12 AM</div></div>
+          </div>
+          <div class="card stack" style="border-color:#F2C9C5;background:var(--red-50)">
+            <div class="row"><svg class="ico" style="color:var(--red)"><use href="#i-alert"/></svg><b>Couldn't load property comparison</b></div>
+            <span class="t-s mut">The server didn't respond. Your data is safe. Try again in a moment.</span>
+            <div class="btn s sm" style="justify-self:start"><svg class="ico sm"><use href="#i-refresh"/></svg>Retry</div>
+          </div>
+          <div class="card row" style="background:var(--amber-50);border-color:#F4DDB0"><svg class="ico" style="color:var(--amber)"><use href="#i-rupee"/></svg><span class="t-s">You can still record cash payments. They'll sync when you're back online.</span></div>
+        </div>
+        <div class="bn"><div class="on"><svg class="ico"><use href="#i-home"/></svg>Home</div><div><svg class="ico"><use href="#i-bldg"/></svg>Properties</div><div><svg class="ico"><use href="#i-users"/></svg>Residents</div><div><svg class="ico"><use href="#i-rupee"/></svg>Finance</div><div><svg class="ico"><use href="#i-grid"/></svg>More</div></div>
+      </div>
+      <div class="cap"><span><code>D-08</code><b>Offline + partial error</b></span><span class="to">Cached numbers stay visible with a timestamp; only the failed card shows an error</span></div>
+    </div>
+
+    <!-- D-09 Permission denied -->
+    <div class="shot">
+      <div class="phone">
+        <div class="sb"><span>9:41</span><i>▂▄▆ ▮</i></div>
+        <div class="ab"><div class="ib"><svg class="ico"><use href="#i-back"/></svg></div><h1>Reports</h1></div>
+        <div class="empty">
+          <div style="width:72px;height:72px;border-radius:20px;background:var(--slate-50);color:var(--ink-2);display:grid;place-items:center"><svg class="ico" style="width:34px;height:34px"><use href="#i-lock"/></svg></div>
+          <div class="t-l w7">You don't have access to Reports</div>
+          <div class="mut">Your role is <b>Manager · Royal PG</b>. Ask Deven Patel (owner) to give you report access.</div>
+          <div class="btn s" style="width:100%">Request access</div>
+        </div>
+      </div>
+      <div class="cap"><span><code>D-09</code><b>Permission denied</b></span><span class="to">Shown to staff roles with limited rights. Residents never see owner screens at all; the routes don't exist in their app shell.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= WORKFLOWS ======================= -->
+<section class="blk" id="workflows">
+  <header>
+    <div class="eyebrow">Stage 6 · Journeys covered so far</div>
+    <h2>Workflows</h2>
+    <p>Screen codes link the journey to the wireframes above. Workflows that depend on later modules are listed with their phase.</p>
+  </header>
+  <div class="stack" style="display:grid;gap:18px">
+    <div class="panel"><div class="tree"><h4>W1 · Owner onboarding</h4></div>
+      <div class="flow" style="margin-top:10px"><span class="s"><code>A-03</code>Welcome</span><span class="a">→</span><span class="s"><code>A-04</code>Mobile</span><span class="a">→</span><span class="s"><code>A-05</code>OTP</span><span class="a">→</span><span class="s"><code>A-07</code>Profile</span><span class="a">→</span><span class="s"><code>A-08</code>Business</span><span class="a">→</span><span class="s"><code>A-09</code>Property</span><span class="a">→</span><span class="s"><code>A-10</code>Building, floors, rooms, beds</span><span class="a">→</span><span class="s"><code>A-11</code>Ready</span><span class="a">→</span><span class="s"><code>D-07</code>Dashboard</span></div></div>
+    <div class="panel"><div class="tree"><h4>W3 · Resident login</h4></div>
+      <div class="flow" style="margin-top:10px"><span class="s">Owner adds resident (Phase 2)</span><span class="a">→</span><span class="s"><code>A-12</code>WhatsApp invite</span><span class="a">→</span><span class="s"><code>A-05</code>OTP</span><span class="a">→</span><span class="s"><code>A-13</code>Account choice (if needed)</span><span class="a">→</span><span class="s">Resident Home &amp; My room (Phase 5)</span></div></div>
+    <div class="panel"><div class="tree"><h4>W8 · Multi-property management</h4></div>
+      <div class="flow" style="margin-top:10px"><span class="s"><code>D-01</code>All Properties</span><span class="a">→</span><span class="s"><code>D-02</code>Switcher</span><span class="a">→</span><span class="s"><code>D-06</code>Loading</span><span class="a">→</span><span class="s"><code>D-03</code>Sunrise dashboard</span><span class="a">→</span><span class="s"><code>D-02</code>Switcher</span><span class="a">→</span><span class="s">Royal PG dashboard (same layout as D-03)</span></div></div>
+  </div>
+</section>
+
+<!-- ======================= COVERAGE ======================= -->
+<section class="blk" id="coverage">
+  <header>
+    <div class="eyebrow">Stage 8 · Tracking</div>
+    <h2>Coverage and remaining phases</h2>
+    <p>Nothing is silently skipped. Every module from the specification is mapped to a phase; edge states (empty, loading, error, success, validation, confirmation, offline, permission denied, no results) are delivered per module inside its phase.</p>
+  </header>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th>Scope</th><th>Workflows</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Sitemap, navigation, design system · Authentication (15 screens + states) · M1 Dashboard &amp; property switching</td><td>W1, W3 (owner part), W8</td><td><span class="pill p-done">In this page</span></td></tr>
+        <tr><td>2</td><td>M2 Properties (list, add/edit, address, amenities, photos, documents, status, analytics, rules &amp; curfew) · M3 Buildings, floors, rooms, beds, occupancy map, bed history, meter setup · M4 Residents &amp; KYC (5-step add, profile, guardian, emergency, KYC verify, police verification, check-in) · M5 Reservations (bed picker with date-overlap blocking, advance, waitlist, cancel)</td><td>W2, W4</td><td><span class="pill p-next">Next</span></td></tr>
+        <tr><td>3</td><td>M6 Rent, invoices &amp; payments (generate, breakdown, cash, UPI, verify, receipts, overdue, late fees, partial/advance) · Electricity meter readings &amp; bill split · Food charges · M7 Deposits (collect, deduct, settle, refund) · M8 Expenses (categories, vendors, bills, approvals, recurring)</td><td>W5 (owner side), W7, W9</td><td><span class="pill p-later">Planned</span></td></tr>
+        <tr><td>4</td><td>M9 Complaints &amp; maintenance · M10 Staff, attendance, shifts, leave, salary · M11 Reports (13 reports, filters, export) · M12 Notifications &amp; announcements, WhatsApp/SMS templates · M13 Subscription (plans, compare, upgrade, renew, usage, expiry) · M14 Settings · Visitor register · Food &amp; mess menu</td><td>W6 (owner side), W10</td><td><span class="pill p-later">Planned</span></td></tr>
+        <tr><td>5</td><td>Resident app: Home, Rent (invoice → UPI → success/failure → receipt), Complaints (raise → track → feedback), Notices &amp; rules, Profile (KYC, guardian, deposit, stay history, check-out request)</td><td>W3 (resident side), W5, W6</td><td><span class="pill p-later">Planned</span></td></tr>
+        <tr><td>6</td><td>M15 Super Admin console (12 screens) · Edge-state matrix for every module · Final review checklist against Section 16 Stage 8</td><td>All 10 end-to-end</td><td><span class="pill p-later">Planned</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid-cols" style="margin-top:16px">
+    <div class="panel"><div class="tree"><h4>Design decisions to confirm</h4></div>
+      <ul class="note" style="padding-left:16px;margin:8px 0 0">
+        <li>Deposits and Expenses live inside the Finance tab (segmented), not under More.</li>
+        <li>Reservations sit under Residents and in More; also a dashboard quick action.</li>
+        <li>Staff (warden, manager) log in to the Owner app with restricted permissions (see A-13, D-09). The spec names only Owner and Resident roles, so this needs your sign-off.</li>
+        <li>Password login is optional for owners only. Residents use OTP only.</li>
+      </ul>
+    </div>
+    <div class="panel"><div class="tree"><h4>Known limits of this file</h4></div>
+      <ul class="note" style="padding-left:16px;margin:8px 0 0">
+        <li>Property images are drawn illustrations; real photos will come from owner uploads (Supabase Storage).</li>
+        <li>Screens are static wireframes, not a clickable prototype. Each caption states where taps lead.</li>
+        <li>Hindi and Gujarati are shown as type samples; full translated screens are not drawn.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div>
